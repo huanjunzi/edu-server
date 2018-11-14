@@ -6,7 +6,7 @@ let filterValues = (values)  => {
   let filterSql = ''
   let filter = JSON.parse(values)
   _.map(filter, function(value, key) {
-    return filterSql += `${key} in (${value.map(v => `'${v}'` ).join(',')}) and `
+    return filterSql += `t1.${key} in (${value.map(v => `'${v}'` ).join(',')}) and `
   })
   // 去除最后一个and字符串
   filterSql=filterSql.substr(0, filterSql.length-4)
@@ -17,7 +17,7 @@ let searchValues = (values) => {
   let searchSql = ''
   let searchValue = JSON.parse(values)
   for (key in searchValue) {
-    searchSql = ` and ${key} like '%${searchValue[key]}%'`
+    searchSql = ` and t1.${key} like '%${searchValue[key]}%'`
   }
   return searchSql
 }
@@ -27,7 +27,7 @@ let paramsValues = (values) => {
   let paramsValue = JSON.parse(values)
     for (key in paramsValue) {
       console.log(key, paramsValue[key])
-      paramsSql += ` and ${key} in ('${paramsValue[key]}')`
+      paramsSql += ` and t1.${key} in ('${paramsValue[key]}')`
     }
   return paramsSql
 }
@@ -38,7 +38,7 @@ let dataTimeValues = (values)  => {
   let time = JSON.parse(values)
   let beginTime = time[0]
   let endTime = time[1]
-  timeSql = ` and create_time BETWEEN '${beginTime} 00:00:00' and '${endTime} 23:59:59'`
+  timeSql = ` and t1.create_time BETWEEN '${beginTime} 00:00:00' and '${endTime} 23:59:59'`
   
   // 去除最后一个and字符串
   return timeSql

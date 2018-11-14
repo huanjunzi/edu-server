@@ -21,7 +21,7 @@ const index = require('./routes/index')
 const users = require('./routes/users')
 const  api = require('./routes/api')
 const education = require('./routes/education')
-
+const member = require('./routes/member')
 // error handler
 onerror(app)
 
@@ -76,6 +76,7 @@ app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
 app.use(api.routes(), api.allowedMethods())
 app.use(education.routes(), education.allowedMethods())
+app.use(member.routes(), member.allowedMethods())
 // error-handling
 app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)

@@ -11,13 +11,14 @@ router.get('/checkUser', async (ctx,next) => {
   const r = await mysql.findName(name)
   if(r.length > 0) {
     ctx.body = {
-      message: "failed",
+      message: "success",
     }
-    return
+    
   }
   ctx.body = {
-    message: "success"
-  }  
+    message: "failed"
+  } 
+  return
 })
 // 注册用户
 router.post('/registerUser', async (ctx, next) => {
