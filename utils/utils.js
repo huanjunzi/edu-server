@@ -1,5 +1,6 @@
 
 const _ = require('underscore')
+const mysql = require('mysql')
 
 // 处理filter参数 拼接sql
 let filterValues = (values)  => {
@@ -13,20 +14,19 @@ let filterValues = (values)  => {
   return filterSql
 }
 // 处理搜索参数
-let searchValues = (values) => {
-  let searchSql = ''
-  let searchValue = JSON.parse(values)
-  for (key in searchValue) {
-    searchSql = ` and t1.${key} like '%${searchValue[key]}%'`
-  }
-  return searchSql
-}
+// let searchValues = (values) => {
+//   let searchSql = ''
+//   let searchValue = JSON.parse(values)
+//   for (key in searchValue) {
+//     searchSql = ` and t1.${key} like '%${searchValue[key]}%'`
+//   }
+//   return searchSql
+// }
  // 处理对象参数
 let paramsValues = (values) => {
   let paramsSql = ''
   let paramsValue = JSON.parse(values)
     for (key in paramsValue) {
-      console.log(key, paramsValue[key])
       paramsSql += ` and t1.${key} in ('${paramsValue[key]}')`
     }
   return paramsSql
@@ -44,9 +44,21 @@ let dataTimeValues = (values)  => {
   return timeSql
 }
 
+// 处理和转义搜索参数
+let fuzzySearch = (fuzzy) => {
+  let searchSql = ''
+  for (let likeKey in fuzzy) {
+    if (!fuzzy[likeKey]) continue
+    let likeValue = mysql.escape(fuzzy[likeKey].toString())
+    likeValue = "'%" + likeValue.slice(1,-1) + "%'"
+    searchSql += ` and t1.${mysql.escapeId(likeKey)} like ${likeValue}`
+  }
+  return searchSql
+}
+
 module.exports = {
   filterValues,
-  searchValues,
   paramsValues,
   dataTimeValues,
+  fuzzySearch,
 }

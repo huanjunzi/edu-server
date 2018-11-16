@@ -39,7 +39,6 @@ router.get('/findClasses', async (ctx, next) => {
 router.get('/downloadExcel', async (ctx, next) => {
   return ctx.body = await mysql.downloadExcel(ctx.request.query,ctx)
 })
-module.exports = router
 
 // 编辑表格信息
 router.post('/editClass', async (ctx, next) => {
@@ -85,3 +84,5 @@ router.post('/deleteClass', async (ctx, next) => {
     message: "failed"
   }
 })
+
+module.exports = router
