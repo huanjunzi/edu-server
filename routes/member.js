@@ -55,5 +55,19 @@ router.post('/deleteMember', async (ctx, next) => {
 router.get('/downloadMemberExcel', async (ctx, next) => {
   return ctx.body = await mysql.downloadMemberExcel(ctx.request.query,ctx)
 })
+router.get('/getMemberDetail', async (ctx, next) => {
+  const r = await mysql.getMemberDetail(ctx.request.query)
+  if(r.length > 0){
+    ctx.body = {
+      message: "success",
+      rows: r
+    }
+    return
+  }
+  ctx.body = {
+    message: "failed"
+  }
+})
+// 查询客户详情
 
 module.exports = router
