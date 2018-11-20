@@ -70,4 +70,18 @@ router.get('/getMemberDetail', async (ctx, next) => {
 })
 // 查询客户详情
 
+router.post('/changeContactCount', async (ctx, next) => {
+  const r = await mysql.changeContactCount(ctx.request.query)
+  console.log("r=", r)
+  if(r.length > 0){
+    ctx.body = {
+      message: "success",
+      rows: r
+    }
+    return
+  }
+  ctx.body = {
+    message: "failed"
+  }
+})
 module.exports = router
