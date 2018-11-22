@@ -50,6 +50,21 @@ router.post('/deleteChild', async (ctx, next) => {
 router.get('/downloadChildExcel', async (ctx, next) => {
   return ctx.body = await mysql.downloadChildExcel(ctx.request.query,ctx)
 })
+
+
+router.post('/changeClassFee', async (ctx, next) => {
+  const r = await mysql.changeClassFee(ctx.request.query)
+  if(r.length > 0){
+    ctx.body = {
+      message: "success",
+      rows: r
+    }
+    return
+  }
+  ctx.body = {
+    message: "failed"
+  }
+})
 // router.get('/getMemberDetail', async (ctx, next) => {
 //   const r = await mysql.getMemberDetail(ctx.request.query)
 //   if(r.length > 0){
