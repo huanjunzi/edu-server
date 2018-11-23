@@ -65,19 +65,19 @@ router.post('/changeClassFee', async (ctx, next) => {
     message: "failed"
   }
 })
-// router.get('/getMemberDetail', async (ctx, next) => {
-//   const r = await mysql.getMemberDetail(ctx.request.query)
-//   if(r.length > 0){
-//     ctx.body = {
-//       message: "success",
-//       rows: r
-//     }
-//     return
-//   }
-//   ctx.body = {
-//     message: "failed"
-//   }
-// })
-// // 查询客户详情
+router.get('/getChildDetail', async (ctx, next) => {
+  const r = await mysql.getChildDetail(ctx.request.query)
+  if(r.length > 0){
+    ctx.body = {
+      message: "success",
+      rows: r
+    }
+    return
+  }
+  ctx.body = {
+    message: "failed"
+  }
+})
+// 查询客户详情
 
 module.exports = router
