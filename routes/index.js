@@ -2,14 +2,12 @@
 const router = require('koa-router')()
 const mysql = require('../lib/mysql.js')
 router.prefix('/api/index')
+var figlet = require('figlet')
 
 router.get('/', async (ctx, next) => {
   await ctx.render('index', {
     title: 'Hello Koa 2!'
   })
-})
-router.get('/a', async (ctx, next) => {
-    ctx.body = await mysql.findDataById(1).then(res => res[0].name)
 })
 
 router.get('/string', async (ctx, next) => {
@@ -22,4 +20,16 @@ router.get('/json', async (ctx, next) => {
   }
 })
 
+router.get('/getEggInfo', async (ctx, next) => {
+  figlet('I love beibei never change forever!', function(err, data) {
+      if (err) {
+        ctx.body = {
+          rows: 'Something went wrong...'
+        }          
+      }
+      ctx.body = {
+        rows: data
+      }
+  })
+})
 module.exports = router
