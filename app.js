@@ -23,6 +23,7 @@ const  api = require('./routes/api')
 const education = require('./routes/education')
 const member = require('./routes/member')
 const child = require('./routes/child')
+const staff = require('./routes/staff')
 // error handler
 onerror(app)
 
@@ -79,6 +80,7 @@ app.use(api.routes(), api.allowedMethods())
 app.use(education.routes(), education.allowedMethods())
 app.use(member.routes(), member.allowedMethods())
 app.use(child.routes(), child.allowedMethods())
+app.use(staff.routes(), staff.allowedMethods())
 // error-handling
 app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)
