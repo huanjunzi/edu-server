@@ -62,4 +62,49 @@ router.get('/getStaffDetail', async (ctx, next) => {
     message: "failed"
   }
 })
+
+// 查找员工工资
+router.get('/findSalary', async (ctx,next) => {
+  const r = await mysql.findSalary(ctx.request.query)
+  if(r.length > 0){
+    ctx.body = {
+      message: "success",
+      rows: r
+    }
+    return
+  }
+  ctx.body = {
+    message: "failed"
+  }
+})
+
+// 创建或编辑工资条
+router.post('/editSalary', async (ctx, next) => {
+  const r = await mysql.editSalary(ctx.request.query)
+  if(r.length > 0){
+    ctx.body = {
+      message: "success",
+      rows: r
+    }
+    return
+  }
+  ctx.body = {
+    message: "failed"
+  }
+})
+
+// 删除工资条
+router.post('/deleteSalary', async (ctx, next) => {
+  const r = await mysql.deleteSalary(ctx.request.query)
+  if(r.length > 0){
+    ctx.body = {
+      message: "success",
+      rows: r
+    }
+    return
+  }
+  ctx.body = {
+    message: "failed"
+  }
+})
 module.exports = router
